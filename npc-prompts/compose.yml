@@ -1,0 +1,19 @@
+services:
+  npc-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NPC_KIND=orc
+    volumes:
+      # this allows to use devcontainer and it will work outside of it too
+      - ${LOCAL_WORKSPACE_FOLDER:-.}${LOCAL_WORKSPACE_FOLDER:+/npc-prompts}/contents:/app/contents
+
+    models:
+      qwen2_5:
+        endpoint_var: MODEL_RUNNER_BASE_URL
+        model_var: MODEL_RUNNER_CHAT_MODEL
+      
+models:
+  qwen2_5:
+    model: ai/qwen2.5:latest
