@@ -1,0 +1,35 @@
+{
+  "Actions": [
+    "Multiattack",
+    "Bite",
+    "Claw",
+    "Ravage"
+  ],
+  "Alignment": "Chaotic Good",
+  "ArmorClass": 15,
+  "Challenge": "2 (450 XP)",
+  "Description": "This humanoid has the features of a werewolf, with thick fur, sharp canines, and glowing eyes. During the full moon, it transforms into a monstrous wolf-like creature, but during the rest of the month, it retains a humanoid form.",
+  "HitPoints": 43,
+  "Kind": "Werewolf",
+  "Languages": [
+    "Common",
+    "Dwarvish",
+    "Elvish",
+    "Gnome",
+    "Orc"
+  ],
+  "Senses": [
+    "Darkvision 60 ft.",
+    "Passive Perception 12"
+  ],
+  "Size": "Medium",
+  "Skills": [
+    "Athletics +5",
+    "Perception +3",
+    "Stealth +5"
+  ],
+  "Speed": "))); echo '30 ft. (6 squares), Climb 30 ft. (6 squares)'; ?>" ,
+  "Type": "Humanoid (werewolf)"
+}
+
+  							   		  		

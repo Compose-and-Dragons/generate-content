@@ -1,0 +1,18 @@
+{
+  "Kind": "Werewolf",
+  "Size": "Medium",
+  "Type": "Monstrosity",
+  "Description": "A half-human, half-wolf creature standing at around 6-7 feet tall in its humanoid form. It has the body of a human but the head and hind legs of a wolf, with sharp claws and fangs. The fur is typically matted and greasy, ranging in color from brown to gray. Werewolves are known for their uncontrollable transformation during the full moon, turning into a monstrous wolf-like form with enhanced strength and senses.",
+  "Alignment": "Chaotic Neutral",
+  "ArmorClass": 13,
+  "HitPoints": 120,
+  "Speed": "40 ft. (30 ft. while transformed)",
+  "Skills": "Perception +5, Stealth +5",
+  "Senses": "Darkvision 60 ft., Passive Perception 15",
+  "Languages": "Common, Sylvan (can't use language in wolf form)",
+  "Challenge": "5 (1,800 XP)",
+  "Actions": {
+    "Bite": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 19 (2d10 + 5) piercing damage. If the target is a creature, it must succeed on a DC 16 Strength saving throw or be knocked prone.",
+    "Rend (bonus action)": "The werewolf makes a bite attack. On a hit, the target takes an additional 8 (2d6) slashing damage."
+  }
+}

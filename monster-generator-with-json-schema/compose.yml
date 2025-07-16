@@ -1,13 +1,13 @@
 services:
-  npc-generator:
+  monster-generator-json-schema:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NPC_KIND=orc
+      - MONSTER_KIND=werewolf
     volumes:
       # this allows to use devcontainer and it will work outside of it too
-      - ${LOCAL_WORKSPACE_FOLDER:-.}${LOCAL_WORKSPACE_FOLDER:+/npc-generator}/contents:/app/contents
+      - ${LOCAL_WORKSPACE_FOLDER:-.}${LOCAL_WORKSPACE_FOLDER:+/monster-generator}/contents:/app/contents
 
     models:
       qwen2_5:

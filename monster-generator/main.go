@@ -24,21 +24,28 @@ func main() {
 		panic("MODEL_RUNNER_CHAT_MODEL environment variable is not set")
 	}
 
-	kind := os.Getenv("NPC_KIND")
+	kind := os.Getenv("MONSTER_KIND")
 	if kind == "" {
-		panic("NPC_KIND environment variable is not set")
+		panic("MONSTER_KIND environment variable is not set")
 	}
 
 	systemInstruction, err := helpers.ReadTextFile("instructions.md")
 	if err != nil {
 		panic(err)
 	}
+
 	steps, err := helpers.ReadTextFile("steps.md")
 	if err != nil {
 		panic(err)
 	}
 
-	userContent := "Generate a character sheet for an "+ kind
+	userContent := "Generate monster data for the given kind: " + kind + " with the above instructions."
+
+	responseFormat := openai.ChatCompletionNewParamsResponseFormatUnion{
+		OfJSONObject: &openai.ResponseFormatJSONObjectParam{
+			Type: "json_object",
+		},
+	}
 
 	bob, err := agents.NewAgent("Bob",
 		agents.WithDMR(modelRunnerBaseUrl),
@@ -50,6 +57,8 @@ func main() {
 				openai.SystemMessage(steps),
 				openai.UserMessage(userContent),
 			},
+			ResponseFormat: responseFormat,
+
 		}),
 		agents.WithLoggingEnabled(),
 		agents.WithLogLevel(agents.LogLevelError),
@@ -65,9 +74,9 @@ func main() {
 		panic(err)
 	}
 
-	err = helpers.WriteTextFile("contents/character_sheet.md", answer)
+	err = helpers.WriteTextFile("contents/monster_sheet.json", answer)
 	if err != nil {
-		panic(fmt.Errorf("failed to write character sheet: %w", err))
+		panic(fmt.Errorf("failed to write monster sheet: %w", err))
 	}
 
 }
