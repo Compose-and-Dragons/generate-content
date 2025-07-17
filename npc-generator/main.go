@@ -65,7 +65,7 @@ func main() {
 		panic(err)
 	}
 
-	err = helpers.WriteTextFile("contents/character_sheet.md", answer)
+	err = helpers.WriteTextFile("contents/character_sheet_"+kind+".md", answer)
 	if err != nil {
 		panic(fmt.Errorf("failed to write character sheet: %w", err))
 	}

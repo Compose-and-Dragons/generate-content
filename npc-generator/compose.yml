@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NPC_KIND=orc
+      - NPC_KIND=${NPC_KIND:-orc}
     volumes:
       # this allows to use devcontainer and it will work outside of it too
       - ${LOCAL_WORKSPACE_FOLDER:-.}${LOCAL_WORKSPACE_FOLDER:+/npc-generator}/contents:/app/contents
