@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/budgies-nest/budgie/agents"
-	"github.com/budgies-nest/budgie/helpers"
+	"monster-generator/helpers"
 	"github.com/openai/openai-go"
+	"github.com/openai/openai-go/option"
 	"github.com/openai/openai-go/shared"
 )
 
@@ -30,11 +30,17 @@ func main() {
 		panic("MONSTER_KIND environment variable is not set")
 	}
 
-	systemInstruction, err := helpers.ReadTextFile("instructions.md")
+	systemInstructions, err := helpers.ReadTextFile("instructions.md")
 	if err != nil {
 		panic(err)
 	}
 
+	ctx := context.Background()
+
+	clientEngine := openai.NewClient(
+		option.WithBaseURL(modelRunnerBaseUrl),
+		option.WithAPIKey(""),
+	)
 
 	userContent := "Generate monster data for the given kind: " + kind + " with the above instructions."
 
@@ -104,37 +110,38 @@ func main() {
 							"description": "The actions of the character to generate",
 						},
 					},
-					"required": []string{"Kind", "Size", "Type", "Description", "Alignment", "ArmorClass", "HitPoints", "Speed", "Skills", "Senses", "Languages", "Challenge", "Actions"},
+					"required":             []string{"Kind", "Size", "Type", "Description", "Alignment", "ArmorClass", "HitPoints", "Speed", "Skills", "Senses", "Languages", "Challenge", "Actions"},
 					"additionalProperties": false,
 				},
 			},
 		},
 	}
 
+	// Chat Completion parameters
+	chatCompletionParams := openai.ChatCompletionNewParams{
+		Messages: []openai.ChatCompletionMessageParamUnion{
+			openai.SystemMessage(systemInstructions),
+			openai.UserMessage(userContent),
+		},
+		ResponseFormat: responseFormat,
+		Model:          modelRunnerChatModel,
+		Temperature:    openai.Opt(0.8),
+	}	
 
-	bob, err := agents.NewAgent("Bob",
-		agents.WithDMR(modelRunnerBaseUrl),
-		agents.WithParams(openai.ChatCompletionNewParams{
-			Model:       modelRunnerChatModel,
-			Temperature: openai.Opt(0.8),
-			Messages: []openai.ChatCompletionMessageParamUnion{
-				openai.SystemMessage(systemInstruction),
-				openai.UserMessage(userContent),
-			},
-			ResponseFormat: responseFormat,
-		}),
-		agents.WithLoggingEnabled(),
-		agents.WithLogLevel(agents.LogLevelError),
-	)
-	if err != nil {
-		panic(err)
+	stream := clientEngine.Chat.Completions.NewStreaming(ctx, chatCompletionParams)
+
+	answer := ""
+	for stream.Next() {
+		chunk := stream.Current()
+		// Stream each chunk as it arrives
+		if len(chunk.Choices) > 0 && chunk.Choices[0].Delta.Content != "" {
+			answer += chunk.Choices[0].Delta.Content
+			fmt.Print(chunk.Choices[0].Delta.Content)
+		}
 	}
-	answer, err := bob.ChatCompletionStream(context.Background(), func(self *agents.Agent, content string, err error) error {
-		fmt.Print(content)
-		return nil
-	})
-	if err != nil {
-		panic(err)
+
+	if err := stream.Err(); err != nil {
+		fmt.Printf("😡 Stream error: %v\n", err)
 	}
 
 	err = helpers.WriteTextFile("contents/monster_sheet.json", answer)

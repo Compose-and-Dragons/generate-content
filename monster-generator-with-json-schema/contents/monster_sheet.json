@@ -1,35 +1,26 @@
 {
   "Actions": [
-    "Multiattack",
     "Bite",
-    "Claw",
-    "Ravage"
+    "Claws",
+    "Pummel",
+    "Rage",
+    "Warpaint"
   ],
   "Alignment": "Chaotic Good",
-  "ArmorClass": 15,
-  "Challenge": "2 (450 XP)",
-  "Description": "This humanoid has the features of a werewolf, with thick fur, sharp canines, and glowing eyes. During the full moon, it transforms into a monstrous wolf-like creature, but during the rest of the month, it retains a humanoid form.",
-  "HitPoints": 43,
+  "ArmorClass": 14,
+  "Challenge": "s 4 (1,100 XP)",
+  "Description": "A werewolf is a shape-changed human who has transformed into a monstrous predator. In their human form, they are a fierce warrior or a cunning rogue, but in their beast form, they are a relentless hunter with a primal instinct to kill.",
+  "HitPoints": 103,
   "Kind": "Werewolf",
-  "Languages": [
-    "Common",
-    "Dwarvish",
-    "Elvish",
-    "Gnome",
-    "Orc"
-  ],
+  "Languages": ["Common", "Undercommon"],
   "Senses": [
     "Darkvision 60 ft.",
-    "Passive Perception 12"
+    "Passive Perception 13"
   ],
-  "Size": "Medium",
-  "Skills": [
-    "Athletics +5",
-    "Perception +3",
-    "Stealth +5"
-  ],
-  "Speed": "))); echo '30 ft. (6 squares), Climb 30 ft. (6 squares)'; ?>" ,
-  "Type": "Humanoid (werewolf)"
+  "Size": "Large",
+  "Skills": ["Athletics +7", "Intimidation +4", "Perception +4", "Stealth +4"],
+  "Speed": "50 ft.",
+  "Type": "Monstrous humanoid (shapechanger, werewolf)"
 }
 
-  							   		  		
+  										 		 	 	 
